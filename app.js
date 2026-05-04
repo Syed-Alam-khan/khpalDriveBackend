@@ -1,4 +1,5 @@
 import express from "express";
+import fs from "fs";
 import dns from "node:dns";
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 import dotenv from "dotenv";
@@ -11,6 +12,11 @@ import carRoutes from "./routes/carRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 
 dotenv.config();
+
+// Ensure uploads directory exists
+if (!fs.existsSync("uploads")) {
+  fs.mkdirSync("uploads");
+}
 
 // Connect to Database
 connectDB();
