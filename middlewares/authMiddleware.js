@@ -6,7 +6,12 @@ import User from "../models/User.model.js";
 export const protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  token = req.cookies.jwt;
+  // Check for token in cookies or Authorization header
+  if (req.cookies.jwt) {
+    token = req.cookies.jwt;
+  } else if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+    token = req.headers.authorization.split(" ")[1];
+  }
 
   if (token) {
     try {
