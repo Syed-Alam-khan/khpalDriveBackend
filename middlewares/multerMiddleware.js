@@ -5,7 +5,7 @@ import path from "path";
 // Set Storage Engine
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadDir = "/tmp";
+    const uploadDir = process.platform === "win32" ? "uploads" : "/tmp";
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
