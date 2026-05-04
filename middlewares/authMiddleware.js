@@ -21,11 +21,11 @@ export const protect = asyncHandler(async (req, res, next) => {
     } catch (error) {
       console.error(error);
       res.status(401);
-      throw new Error("Not authorized, token failed");
+      throw new Error("Security Error: Token is invalid or expired");
     }
   } else {
     res.status(401);
-    throw new Error("Not authorized, no token");
+    throw new Error("Security Error: No login token found");
   }
 });
 
@@ -35,6 +35,6 @@ export const admin = (req, res, next) => {
     next();
   } else {
     res.status(401);
-    throw new Error("Not authorized as an admin");
+    throw new Error("Permission Error: You are not an admin");
   }
 };
