@@ -14,8 +14,9 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 dotenv.config();
 
 // Ensure uploads directory exists
-if (!fs.existsSync("uploads")) {
-  fs.mkdirSync("uploads");
+const uploadPath = path.join(process.cwd(), "uploads");
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath, { recursive: true });
 }
 
 // Connect to Database
