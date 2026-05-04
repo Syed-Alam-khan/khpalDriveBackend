@@ -44,10 +44,11 @@ export const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    generateToken(res, user._id);
+    const token = generateToken(res, user._id);
 
     res.status(201).json({
       message: "User registered successfully",
+      token,
       user: {
         _id: user._id,
         name: user.name,
@@ -72,9 +73,10 @@ export const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
-    generateToken(res, user._id);
+    const token = generateToken(res, user._id);
     res.json({
       message: "Logged in successfully",
+      token,
       user: {
         _id: user._id,
         name: user.name,
