@@ -47,7 +47,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     const token = generateToken(res, user._id);
 
     res.status(201).json({
-      message: "User registered successfully - V4 - FORCED_TOKEN",
+      message: "User registered successfully - V5_FINAL",
       token: token,
       user: {
         _id: user._id,
@@ -75,7 +75,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   if (user && (await user.matchPassword(password))) {
     const token = generateToken(res, user._id);
     res.json({
-      message: "Logged in successfully - V4 - FORCED_TOKEN",
+      message: "Logged in successfully - V5_FINAL",
       token: token,
       user: {
         _id: user._id,
