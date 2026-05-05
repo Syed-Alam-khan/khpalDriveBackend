@@ -51,6 +51,11 @@ app.use("/api/users", userRoutes);
 app.use("/api/cars", carRoutes);
 app.use("/api/categories", categoryRoutes);
 
+// Health Check / Version Check
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", version: "V4_FORCED", timestamp: new Date() });
+});
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
