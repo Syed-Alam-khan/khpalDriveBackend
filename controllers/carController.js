@@ -32,10 +32,6 @@ export const createCar = asyncHandler(async (req, res) => {
     }
   }
 
-  if (images.length === 0) {
-    res.status(400);
-    throw new Error("At least one image is required");
-  }
 
   // Validate Category exists
   const categoryExists = await Category.findById(category);
