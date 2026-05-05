@@ -10,7 +10,6 @@ import { uploadOnCloudinary, deleteFromCloudinary } from "../utils/cloudinary.js
 // @access  Private
 export const createCar = asyncHandler(async (req, res) => {
   const {
-    carName,
     model,
     price,
     fuelType,
@@ -20,7 +19,6 @@ export const createCar = asyncHandler(async (req, res) => {
     type,
     location,
     category,
-    year,
     mileage,
   } = req.body;
 
@@ -47,7 +45,6 @@ export const createCar = asyncHandler(async (req, res) => {
   }
 
   const car = await Car.create({
-    carName,
     model,
     price,
     fuelType,
@@ -58,7 +55,6 @@ export const createCar = asyncHandler(async (req, res) => {
     images,
     location,
     category,
-    year,
     mileage,
     seller: req.user._id,
   });

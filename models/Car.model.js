@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const carSchema = new mongoose.Schema(
   {
-    carName: {
-      type: String,
-      required: [true, "Car name (Make/Brand) is required"],
-    },
     model: {
       type: String,
       required: [true, "Car model is required"],
@@ -57,10 +53,6 @@ const carSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
       required: [true, "Car category is required"],
-    },
-    year: {
-      type: Number,
-      required: [true, "Manufacture year is required"],
     },
     mileage: {
       type: String,
