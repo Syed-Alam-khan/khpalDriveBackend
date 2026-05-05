@@ -5,13 +5,19 @@ const generateToken = (res, userId) => {
     expiresIn: "30d",
   });
 
+  console.log(`Generating token for user: ${userId}`);
+
   // Set JWT as HTTP-Only cookie
   res.cookie("jwt", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV !== "development", // Only secure in production
-    sameSite: process.env.NODE_ENV !== "development" ? "none" : "lax", 
-    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    secure: process.env.NODE_ENV !== "development",
+    sameSite: process.env.NODE_ENV !== "development" ? "none" : "lax",
+    maxAge: 30 * 24 * 60 * 60 * 1000,
   });
+
+  if (!token) {
+    console.error("JWT signing failed: Token is empty");
+  }
 
   return token;
 };
