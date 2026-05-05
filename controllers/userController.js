@@ -15,7 +15,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 
   if (userExists) {
     res.status(400);
-    throw new Error("User already exists");
+    throw new Error("User already exists with this email");
   }
 
   let imageUrl = null;
@@ -32,12 +32,6 @@ export const registerUser = asyncHandler(async (req, res) => {
   if (!imageUrl) {
     res.status(400);
     throw new Error("Profile image is required");
-  }
-
-  const userExists = await User.findOne({ email });
-  if (userExists) {
-    res.status(400);
-    throw new Error("User already exists with this email");
   }
 
   const user = await User.create({
