@@ -20,10 +20,22 @@ const app = express();
 
 // Middlewares
 app.use(cors({
-  origin: ["http://localhost:5173", "http://127.0.0.1:5173", "https://khpal-drive.vercel.app"],
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
+      "https://khpal-drive.vercel.app"
+    ];
+    // Allow any Vercel preview URL or the specified origins
+    if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"],
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
