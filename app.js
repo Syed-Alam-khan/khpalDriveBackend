@@ -27,7 +27,6 @@ app.use(cors({
       "http://127.0.0.1:5173",
       "https://khpal-drive.vercel.app"
     ];
-    // Allow any Vercel preview URL or the specified origins
     if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
       callback(null, true);
     } else {
