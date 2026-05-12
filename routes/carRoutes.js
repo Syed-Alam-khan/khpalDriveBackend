@@ -7,6 +7,7 @@ import {
   deleteCar,
   getMyCars,
   markCarAsSold,
+  reactivateCar,
 } from "../controllers/carController.js";
 import { protect } from "../middlewares/authMiddleware.js";
 import upload from "../middlewares/multerMiddleware.js";
@@ -21,5 +22,6 @@ router.get("/single-car/:id", getCarById);
 router.put("/update-car/:id", protect, upload.array("images", 10), updateCar);
 router.delete("/delete-car/:id", protect, deleteCar);
 router.put("/mark-as-sold/:id", protect, markCarAsSold);
+router.put("/reactivate/:id", protect, reactivateCar);
 
 export default router;

@@ -286,3 +286,27 @@ export const markCarAsSold = asyncHandler(async (req, res) => {
     throw new Error("Car not found");
   }
 });
+// @desc    Reactivate sold car listing
+// @route   PUT /api/cars/reactivate/:id
+// @access  Private
+export const reactivateCar = asyncHandler(async (req, res) => {
+  const car = await Car.findById(req.params.id);
+
+  if (car) {
+    // Check if user is owner
+    if (car.seller.toString() !== req.user._id.toString()) {
+      res.status(403);
+      throw new Error("Not authorized to reactivate this car");
+    }
+
+    car.status = "unsold";
+    const updatedCar = await car.save();
+    res.json({
+      message: "Car reactivated successfully",
+      car: updatedCar,
+    });
+  } else {
+    res.status(404);
+    throw new Error("Car not found");
+  }
+});
