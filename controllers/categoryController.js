@@ -94,3 +94,38 @@ export const deleteCategory = asyncHandler(async (req, res) => {
     throw new Error("Category not found");
   }
 });
+// @desc    User creates a new category (when choosing 'Other')
+// @route   POST /api/categories/user-add-category
+// @access  Private
+export const userCreateCategory = asyncHandler(async (req, res) => {
+  const { name } = req.body;
+
+  if (!name) {
+    res.status(400);
+    throw new Error("Category name is required");
+  }
+
+  // Case-insensitive check
+  const categoryExists = await Category.findOne({ 
+    name: { $regex: new RegExp(`^${name.trim()}$`, "i") } 
+  });
+
+  if (categoryExists) {
+    return res.status(200).json({
+      message: "Category already exists",
+      category: categoryExists,
+    });
+  }
+
+  const category = await Category.create({ name: name.trim() });
+
+  if (category) {
+    res.status(201).json({
+      message: "Category created successfully",
+      category,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid category data");
+  }
+});
