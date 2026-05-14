@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema(
         name: {
             type: String,
             required: [true, "Full name is required"],
-
+            match: [/^[A-Za-z\s]+$/, 'Name can only contain letters and spaces'],
         },
         email: {
             type: String,
@@ -14,12 +14,13 @@ const userSchema = new mongoose.Schema(
             unique: true,
             lowercase: true,
             trim: true,
-
+            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
         },
         phoneNumber: {
             type: String,
             required: [true, "Phone number is required"],
             trim: true,
+            match: [/^03\d{9}$/, 'Please enter a valid 11-digit Pakistan phone number starting with 03'],
         },
         password: {
             type: String,

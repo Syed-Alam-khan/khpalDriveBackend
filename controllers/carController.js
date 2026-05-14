@@ -70,7 +70,7 @@ export const createCar = asyncHandler(async (req, res) => {
 // @route   GET /api/cars/all-cars
 // @access  Public
 export const getCars = asyncHandler(async (req, res) => {
-  const { search, brand, minPrice, maxPrice, fuelType, transmission, category, type } = req.query;
+  const { search, brand, minPrice, maxPrice, fuelType, transmission, category, type, location } = req.query;
 
   let query = { status: "unsold" };
 
@@ -91,6 +91,9 @@ export const getCars = asyncHandler(async (req, res) => {
   }
   if (type) {
     query.type = type;
+  }
+  if (location) {
+    query.location = { $regex: location, $options: "i" };
   }
   if (minPrice || maxPrice) {
     query.price = {};
