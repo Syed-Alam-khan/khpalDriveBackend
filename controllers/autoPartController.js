@@ -74,7 +74,7 @@ export const addAutoPart = async (req, res) => {
 export const getAllAutoParts = async (req, res) => {
   try {
     const parts = await AutoPart.find()
-      .populate("seller", "name phone email role")
+      .populate("seller", "name phoneNumber email role")
       .sort({ createdAt: -1 });
 
     res.status(200).json({
@@ -94,7 +94,7 @@ export const getAllAutoParts = async (req, res) => {
 export const getAutoPartById = async (req, res) => {
   try {
     const part = await AutoPart.findById(req.params.id)
-      .populate("seller", "name phone email role");
+      .populate("seller", "name phoneNumber email role");
 
     if (!part) {
       return res.status(404).json({
