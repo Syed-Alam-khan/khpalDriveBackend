@@ -11,6 +11,8 @@ import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import carRoutes from "./routes/carRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
+import autoPartRoutes from "./routes/autoPartRoutes.js";
+import partCategoryRoutes from "./routes/partCategoryRoutes.js";
 
 dotenv.config();
 
@@ -50,6 +52,8 @@ app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 app.use("/api/users", userRoutes);
 app.use("/api/cars", carRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/autoparts", autoPartRoutes);
+app.use("/api/part-categories", partCategoryRoutes);
 
 // Health Check / Version Check
 app.get("/api/health", (req, res) => {
